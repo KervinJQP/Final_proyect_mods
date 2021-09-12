@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      {{ page_title_prefix }}TinyPilot
+      {{ page_title_prefix }}Proyecto Remoto
     </title>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -20,9 +20,9 @@
     {% endfor %}
 
     <div id="app" tabindex="0">
-      <div class="header-bar">
+      <!-- <div class="header-bar">
         <menu-bar id="menu-bar"></menu-bar>
-      </div>
+      </div> -->
       <div class="footer-bar">
         <status-bar id="status-bar"></status-bar>
       </div>
@@ -59,8 +59,27 @@
           milliseconds-between-mouse-events="600"
         ></remote-screen>
 
-        <on-screen-keyboard id="on-screen-keyboard"></on-screen-keyboard>
+        <div class="split">
+          <div class="left">
+            <on-screen-keyboard id="on-screen-keyboard"></on-screen-keyboard>
+
+          </div>
+          <div class="right">
+            <button id="btn-connect">Conectar USB</button>
+            <!-- <button id="btn-connect">Desconectar USB</button> -->
+          </div>
+
+
+        </div>
+
+        
+
+        
+
       </div>
+
+      
+      
     </div>
     {% include "components/paste-overlay.html" %}
     <script src="/third-party/socket.io/3.1.3/socket.io.min.js"></script>

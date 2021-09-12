@@ -3,11 +3,13 @@
 button,
 .btn {
   display: inline-block;
-  padding: 0.4rem 1.25rem;
-  margin: 1rem;
+  padding: 1.25rem ;
+  margin: 1rem 1rem;
+  width: 12rem;
+  height: 6rem;
   text-decoration: none;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-family: inherit;
   cursor: pointer;
   text-align: center;
@@ -16,17 +18,27 @@ button,
   -moz-appearance: none;
   border-radius: var(--border-radius);
   border: 1px solid var(--brand-metallic-medium);
-  background: var(--brand-metallic-light)
-    linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 60%);
+  background: var(--brand-blue);
 }
 
+.split {
+  display:flex;
+}
+.splitscreen .left {
+  flex: 1;
+}
+.splitscreen .right {
+  flex: 1;
+}
+
+/* 
 button:hover,
 .btn:hover,
 button:focus,
 .btn:focus {
   background-color: var(--brand-metallic-bright);
-}
-
+} */
+/* 
 button:focus,
 .btn:focus {
   outline: 1px solid #fff;
@@ -86,4 +98,13 @@ button:disabled,
 
 .btn-danger:disabled {
   background-color: var(--brand-red-light);
-}
+} */
+
+/* .btn-conect{
+  background-color: var(--brand-green);
+  border-color: var(--brand-green-dark);
+  width: 10%;
+  height: 80%;
+} */
+
+

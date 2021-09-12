@@ -9,6 +9,7 @@ import { sendKeystroke } from "./keystrokes.js";
 import * as settings from "./settings.js";
 import { OverlayTracker } from "./overlays.js";
 
+
 const socket = io();
 let connectedToServer = false;
 
@@ -269,7 +270,7 @@ function processTextInput(textInput) {
 function setCursor(cursor, save = true) {
   // Ensure the correct cursor option displays as active in the navbar.
   if (save) {
-    document.getElementById("menu-bar").cursor = cursor;
+    // document.getElementById("menu-bar").cursor = cursor;
     settings.setScreenCursor(cursor);
   }
   if (connectedToServer) {
@@ -284,7 +285,7 @@ function setKeyboardVisibility(isVisible) {
     hideElementById("on-screen-keyboard");
   }
   settings.setKeyboardVisibility(isVisible);
-  document.getElementById("menu-bar").isKeyboardVisible = isVisible;
+  // document.getElementById("menu-bar").isKeyboardVisible = isVisible;
 }
 
 function setKeystrokeHistoryStatus(isEnabled) {
@@ -295,7 +296,7 @@ function setKeystrokeHistoryStatus(isEnabled) {
     settings.disableKeystrokeHistory();
     document.getElementById("status-bar").keystrokeHistory.disable();
   }
-  document.getElementById("menu-bar").isInputIndicatorEnabled = isEnabled;
+  // document.getElementById("menu-bar").isInputIndicatorEnabled = isEnabled;
 }
 
 document.onload = document.getElementById("app").focus();
@@ -306,55 +307,55 @@ document.addEventListener("overlay-toggled", (evt) => {
   overlayTracker.trackStatus(evt.target, evt.detail.isShown);
 });
 
-const menuBar = document.getElementById("menu-bar");
-menuBar.cursor = settings.getScreenCursor();
-menuBar.addEventListener("cursor-selected", (evt) => {
-  setCursor(evt.detail.cursor);
-});
-menuBar.addEventListener("keystroke-history-toggled", () => {
-  const isEnabled = document.getElementById("status-bar").keystrokeHistory
-    .isEnabled;
-  setKeystrokeHistoryStatus(!isEnabled);
-});
-menuBar.addEventListener("keyboard-visibility-toggled", () => {
-  setKeyboardVisibility(!isElementShown("on-screen-keyboard"));
-});
-menuBar.addEventListener("shutdown-dialog-requested", () => {
-  document.getElementById("shutdown-overlay").show();
-});
-menuBar.addEventListener("update-dialog-requested", () => {
-  document.getElementById("update-overlay").show();
-  document.getElementById("update-dialog").checkVersion();
-});
-menuBar.addEventListener("change-hostname-dialog-requested", () => {
-  document.getElementById("change-hostname-overlay").show();
-  document.getElementById("change-hostname-dialog").initialize();
-});
-menuBar.addEventListener("fullscreen-requested", () => {
-  document.getElementById("remote-screen").fullscreen = true;
-});
-menuBar.addEventListener("debug-logs-dialog-requested", () => {
-  document.getElementById("debug-dialog").getLogs();
-  document.getElementById("debug-overlay").show();
-});
-menuBar.addEventListener("mass-storage-dialog-requested", () => {
-  document.getElementById("feature-pro-overlay").show();
-});
-menuBar.addEventListener("video-settings-dialog-requested", () => {
-  document.getElementById("video-settings-dialog").getSettings();
-  document.getElementById("video-settings-overlay").show();
-});
-menuBar.addEventListener("paste-requested", () => {
-  showPasteOverlay();
-});
-menuBar.addEventListener("ctrl-alt-del-requested", () => {
-  processKeystroke({
-    ctrlLeft: true,
-    altLeft: true,
-    key: "Delete",
-    code: "Delete",
-  });
-});
+// const menuBar = document.getElementById("menu-bar");
+// menuBar.cursor = settings.getScreenCursor();
+// menuBar.addEventListener("cursor-selected", (evt) => {
+//   setCursor(evt.detail.cursor);
+// // });
+// menuBar.addEventListener("keystroke-history-toggled", () => {
+//   const isEnabled = document.getElementById("status-bar").keystrokeHistory
+//     .isEnabled;
+//   setKeystrokeHistoryStatus(!isEnabled);
+// });
+// menuBar.addEventListener("keyboard-visibility-toggled", () => {
+//   setKeyboardVisibility(!isElementShown("on-screen-keyboard"));
+// });
+// menuBar.addEventListener("shutdown-dialog-requested", () => {
+//   document.getElementById("shutdown-overlay").show();
+// });
+// menuBar.addEventListener("update-dialog-requested", () => {
+//   document.getElementById("update-overlay").show();
+//   document.getElementById("update-dialog").checkVersion();
+// });
+// menuBar.addEventListener("change-hostname-dialog-requested", () => {
+//   document.getElementById("change-hostname-overlay").show();
+//   document.getElementById("change-hostname-dialog").initialize();
+// });
+// menuBar.addEventListener("fullscreen-requested", () => {
+//   document.getElementById("remote-screen").fullscreen = true;
+// });
+// menuBar.addEventListener("debug-logs-dialog-requested", () => {
+//   document.getElementById("debug-dialog").getLogs();
+//   document.getElementById("debug-overlay").show();
+// });
+// menuBar.addEventListener("mass-storage-dialog-requested", () => {
+//   document.getElementById("feature-pro-overlay").show();
+// });
+// menuBar.addEventListener("video-settings-dialog-requested", () => {
+//   document.getElementById("video-settings-dialog").getSettings();
+//   document.getElementById("video-settings-overlay").show();
+// });
+// menuBar.addEventListener("paste-requested", () => {
+//   showPasteOverlay();
+// });
+// menuBar.addEventListener("ctrl-alt-del-requested", () => {
+//   processKeystroke({
+//     ctrlLeft: true,
+//     altLeft: true,
+//     key: "Delete",
+//     code: "Delete",
+//   });
+// });
 setKeyboardVisibility(settings.isKeyboardVisible());
 setKeystrokeHistoryStatus(settings.isKeystrokeHistoryEnabled());
 
@@ -389,6 +390,22 @@ shutdownDialog.addEventListener("shutdown-started", (evt) => {
     hideElementById(elementId);
   }
 });
+
+const btn = document.getElementById("btn-connect");
+
+btn.addEventListener("click",()=>{
+  if (btn.innerText==="Conectar USB"){
+    btn.innerText = "Desconectar USB";
+    btn.style.backgroundColor = "#C94C5F";
+    
+    
+  }else{
+    btn.innerText="Conectar USB";
+    btn.style.backgroundColor = "#4D62CB";
+  }
+
+});
+
 
 socket.on("connect", onSocketConnect);
 socket.on("disconnect", onSocketDisconnect);
