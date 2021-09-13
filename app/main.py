@@ -106,6 +106,34 @@ def handle_error(e):
         code = e.code
     return json_response.error(e), code
 
+@app.route('/home')
+def home():
+    return render_template(
+        'index.html',
+        custom_elements_files=find_files.custom_elements_files())
+
+@app.route('/')
+def login():
+    return render_template(
+        'login.html',
+        custom_elements_files=find_files.custom_elements_files())
+
+
+# @app.route('/')
+# def home():
+#     templateData = {
+#        'motor' : 0
+#     }
+#     return render_template('index.html', **templateData)
+
+# @app.route('/login/')
+# def home():
+#     templateData = {
+#        'motor' : 0
+#     }
+#     return render_template('login.html', **templateData)
+
+
 
 # @app.route('/')
 # def home():
