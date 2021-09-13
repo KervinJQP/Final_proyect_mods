@@ -3,8 +3,11 @@
 import logging
 import os
 
+# import RPi.GPIO as GPIO
+
 import flask
 import flask_wtf
+from flask import render_template, request
 from werkzeug import exceptions
 
 import api
@@ -43,11 +46,40 @@ app.config.update(
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
 
+#Configure GPIO
+
+#Define the pins that you want
+motor = 20
+#Motor status
+motorsts = 0
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setwarnings(False)
+# buttonSts = GPIO.LOW
+
+# GPIO.setup(motor, GPIO.OUT)
+
+# GPIO.output(motor,GPIO.LOW)
+
+
+
 # Configure CSRF protection.
 csrf = flask_wtf.csrf.CSRFProtect(app)
 
 app.register_blueprint(api.api_blueprint)
 app.register_blueprint(views.views_blueprint)
+
+
+# @app.route("/<deviceName>/<action>")
+# def action(deviceName, action):
+#     if deviceName == 'motor':
+#         GPIO.output(motor,GPIO.HIGH)
+
+#     template_data = {
+#         'motor' : motorsts
+#         }
+#     motorsts = GPIO.input(motor)
+#     return render_template('index.html', **template_data)
 
 
 @app.errorhandler(flask_wtf.csrf.CSRFError)
@@ -75,7 +107,31 @@ def handle_error(e):
     return json_response.error(e), code
 
 
-def main():
+# @app.route('/')
+# def home():
+#    templateData = {
+#       'motor' : 0,
+      
+#    }
+#    return render_template('index.html', **templateData)
+
+# @app.route('/<led>/<action>')
+# def led(led, action):
+#    #GPIO.output(int(led), int(action))
+#    templateData = {
+#       #'motor' : GPIO.input(motor)
+#       'motor' : 1
+#    }
+#    return render_template('index.html', **templateData)
+
+#pin_state  =  socket_api.socket_send()
+
+#logger.info(pin_state)
+
+
+
+def main(): 
+    
     socketio = socket_api.socketio
     socketio.init_app(app)
     socketio.run(app,
@@ -88,3 +144,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

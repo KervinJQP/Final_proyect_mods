@@ -82,3 +82,15 @@ def test_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     logger.info('Client disconnected')
+
+
+@socketio.on('message')
+def socket_send(data):
+    logger.info(data)
+    if data == 'desconectar':
+        return 1
+    elif data == 'conectar':
+        return 0
+        
+
+    #logger.info("Mensaje enviado")

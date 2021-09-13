@@ -299,6 +299,21 @@ function setKeystrokeHistoryStatus(isEnabled) {
   // document.getElementById("menu-bar").isInputIndicatorEnabled = isEnabled;
 }
 
+function sendMotorEvent(
+  estado
+) {
+  if (!connectedToServer) {
+    return;
+  }
+  socket.emit(
+    "motor-event",
+    {
+      estado
+    }
+  );
+}
+
+
 document.onload = document.getElementById("app").focus();
 
 document.addEventListener("keydown", onKeyDown);
@@ -397,15 +412,21 @@ btn.addEventListener("click",()=>{
   if (btn.innerText==="Conectar USB"){
     btn.innerText = "Desconectar USB";
     btn.style.backgroundColor = "#C94C5F";
+    // socket.emit("state", 1) //Conecta
+    socket.send("conectar");
     
     
   }else{
     btn.innerText="Conectar USB";
     btn.style.backgroundColor = "#4D62CB";
+    // socket.emit("state", 0) //Desconecta
+    socket.send("desconectar");
   }
 
 });
 
+
+//socket.on("message", "Envio");
 
 socket.on("connect", onSocketConnect);
 socket.on("disconnect", onSocketDisconnect);
