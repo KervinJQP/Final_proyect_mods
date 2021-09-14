@@ -6,15 +6,41 @@ import os
 # import RPi.GPIO as GPIO
 
 import flask
+from flask.app import Flask
 import flask_wtf
-from flask import render_template, request
+from flask import render_template, request, session, url_for, redirect
+#from flask_mysqldb import MySQL
+#import MySQLdb
+import mysql.connector
 from werkzeug import exceptions
 
 import api
 import json_response
 import socket_api
 import views
+import datetime
 from find_files import find as find_files
+
+#database
+
+# database = Flask(__name__)
+# database.config.update(
+#      SECRET_KEY=os.urandom(32),
+#      TEMPLATES_AUTO_RELOAD=True,
+#      WTF_CSRF_TIME_LIMIT=None,
+#  )
+
+# database.config['MYSQL_HOST'] = 'localhost:3306'
+# database.config['MYSQL_USER'] = 'root'
+# database.config['MYSQL_PASSWORD'] = '2017130891'
+# database.config['MYSQL_DB'] = 'login'
+
+#db = MySQL(database)
+
+database = mysql.connector.connect(user='root',password='2017130891',
+                           host='127.0.0.1',
+                           database='login')
+cursor = database.cursor()
 
 host = os.environ.get('HOST', '127.0.0.1')
 port = int(os.environ.get('PORT', 8000))
@@ -46,6 +72,7 @@ app.config.update(
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
 
+#db = MySQL(app)
 #Configure GPIO
 
 #Define the pins that you want
@@ -112,11 +139,59 @@ def home():
         'index.html',
         custom_elements_files=find_files.custom_elements_files())
 
-@app.route('/')
+
+# username = request.form['username']
+# password = request.form['password']
+# cursor = database.cursor()
+# cursor.execute('SELECT * FROM from login_info WHERE username = %s AND password = %s',(username,password))
+
+# template = ''
+
+@app.route('/',methods=['GET','POST'])
 def login():
+
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+    # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+        #logger.info(username,password)
+        
+        #cursor = database.connection.cursor(.cursors.DictCursor)
+        cursor.execute("SELECT * FROM login_info WHERE username = %s AND password = %s",(username,password))
+        # Check if account exists using MySQL
+        #cursor = database.connection.cursor(MySQLdb.cursors.DictCursor)
+        #cursor.execute('SELECT * FROM from login_info WHERE username = %s AND password = %s', (username, password,))
+        # Fetch one record and return result
+        info = cursor.fetchone()
+        #print(info[0], info[1], info[2]) 
+        # If account exists in accounts table in out database
+        if info:
+            if info[1] == username :
+                if info[2] == password:
+                    msg =  "login succesfull"
+                    return render_template(
+                        'index.html',
+                        custom_elements_files=find_files.custom_elements_files(),msg=msg)
+
+                else:
+                    msg = "Incorrect password "
+                    return render_template(
+                        'index.html',
+                        custom_elements_files=find_files.custom_elements_files(),msg=msg)
+                
+            else:
+                # Account doesnt exist or username/password incorrect
+                #return "login unsuc"
+                msg = 'Incorrect username/password!'
+                return render_template(
+                    'login.html',
+                    ustom_elements_files=find_files.custom_elements_files(),msg=msg)
+        else:
+            msg = "The user doesnt have permission"
+        #return redirect(url_for('home'))
     return render_template(
-        'login.html',
-        custom_elements_files=find_files.custom_elements_files())
+         'login.html',
+         custom_elements_files=find_files.custom_elements_files(),msg = msg)
 
 
 # @app.route('/')
@@ -159,7 +234,7 @@ def login():
 
 
 def main(): 
-    
+    #database.run(debug=True)
     socketio = socket_api.socketio
     socketio.init_app(app)
     socketio.run(app,

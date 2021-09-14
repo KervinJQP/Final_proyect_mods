@@ -4,19 +4,23 @@ const loginButton = document.getElementById("login-form-submit");
 // const loginErrorMsgform = document.getElementById("login-error-msg-form");
 
 
-loginButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const username = loginForm.username.value;
-    const password = loginForm.password.value;
-    //windoes.alert(username,password);
-    if (username === "kervinjosueq" && password === "11998690") {
-        //alert("You have successfully logged in.");
-        location.href = "/home" ;
+// loginButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     const username = loginForm.username.value;
+//     const password = loginForm.password.value;
+//     //windoes.alert(username,password);
 
-        //location.reload();
-    } else {
-        alert("Incorrect credentials");
-        // loginErrorMsg.style.opacity = 1;
-        // loginErrorMsgform.style.opacity = 1;
-    }
-})
+//     location.href = "/" ;
+
+//     // if (username === "kervinjosueq" && password === "11998690") {
+//     //     //alert("You have successfully logged in.");
+        
+//     //     location.href = "/home" ;
+
+//     //     //location.reload();
+//     // } else {
+//     //     alert("Incorrect credentials");
+//     //     // loginErrorMsg.style.opacity = 1;
+//     //     // loginErrorMsgform.style.opacity = 1;
+//     // }
+// })
