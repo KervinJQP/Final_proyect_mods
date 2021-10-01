@@ -8,11 +8,14 @@ import os
 import flask
 from flask.app import Flask
 import flask_wtf
-from flask import render_template, request, session, url_for, redirect
+from flask import render_template, request, session, url_for, redirect, Response
+from camera import VideoCamera
 #from flask_mysqldb import MySQL
 #import MySQLdb
 import mysql.connector
 from werkzeug import exceptions
+import threading
+import time
 
 import api
 import json_response
@@ -71,6 +74,8 @@ app.config.update(
     WTF_CSRF_TIME_LIMIT=None,
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
+
+pi_camera = VideoCamera(flip=False)
 
 #db = MySQL(app)
 #Configure GPIO
@@ -138,6 +143,16 @@ def home():
     return render_template(
         'index.html',
         custom_elements_files=find_files.custom_elements_files())
+def gen(camera):
+    while True:
+       frame = camera.get_frame()
+       yield(b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(pi_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 # username = request.form['username']
