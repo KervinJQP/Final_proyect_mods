@@ -40,7 +40,7 @@ from find_files import find as find_files
 
 #db = MySQL(database)
 
-database = mysql.connector.connect(user='root',password='2017130891',
+database = mysql.connector.connect(user='root',password='26799',
                            host='127.0.0.1',
                            database='login')
 cursor = database.cursor()
