@@ -172,7 +172,7 @@ def login():
         #logger.info(username,password)
         
         #cursor = database.connection.cursor(.cursors.DictCursor)
-        cursor.execute("SELECT * FROM login_info WHERE username = %s AND password = %s",(username,password))
+        cursor.execute("SELECT * FROM login WHERE username = %s AND password = %s",(username,password))
         # Check if account exists using MySQL
         #cursor = database.connection.cursor(MySQLdb.cursors.DictCursor)
         #cursor.execute('SELECT * FROM from login_info WHERE username = %s AND password = %s', (username, password,))
@@ -181,8 +181,8 @@ def login():
         #print(info[0], info[1], info[2]) 
         # If account exists in accounts table in out database
         if info:
-            if info[1] == username :
-                if info[2] == password:
+            if info[0] == username :
+                if info[1] == password:
                     msg =  "login succesfull"
                     return render_template(
                         'index.html',
