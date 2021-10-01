@@ -1,0 +1,13 @@
+set -e
+
+set -x
+
+set -u
+
+HOST=0.0.0.0 \
+  PORT=8000 \
+  DEBUG=1 \
+  USE_RELOADER=1 \
+  APP_SETTINGS_FILE=/opt/tinypilot/app_settings.cfg \
+  export APP_SETTINGS_FILE
+  ./app/main.py
