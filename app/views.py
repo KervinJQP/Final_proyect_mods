@@ -12,7 +12,7 @@ _DEFAULT_HOSTNAME = 'tinypilot'
 @views_blueprint.route('/', methods=['GET'])
 def index_get():
     return flask.render_template(
-        'index.html',
+        'login.html',
         page_title_prefix=_page_title_prefix(),
         custom_elements_files=find_files.custom_elements_files())
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Remote Control Proyect</title>
+    <link rel= "stylesheet" type= "text/css" href ="/css/loginstyle.css"/>
+    <script defer src="/js/login.js"></script>
+</head>
+
+<body>
+    <!-- <div id="login-error-msg-holder">
+        <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+    </div> -->
+    {% for child_template in custom_elements_files %}
+      {% include child_template.replace('./app/templates/', '') %}
+    {% endfor %}
+
+    <div class="loginbox">
+        <img src= "img/computer.png" class= "avatar">
+        <h1>Login</h1>
+
+        <form id="login-form" method="POST"> 
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <p>Username</p>
+            <input type="text" name="username" placeholder="Enter your Username" id="username">
+            <p>Password</p>
+            <input type="password" name="password" placeholder="Enter Password" id= "password">
+            <input type ="submit" name="" value="Login" id="login-form-submit">
+            
+        </form>
+    <div id="msg"> {{ msg }}</div>
+
+    </div>
+
+
+</body>
+
+</html>
