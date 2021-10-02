@@ -24,6 +24,13 @@ import views
 import datetime
 from find_files import find as find_files
 
+
+#For servomotor
+from gpiozero import Servo
+from time import sleep
+#Define pin for control
+servo = Servo(26)
+
 #database
 
 # database = Flask(__name__)
@@ -102,6 +109,15 @@ app.register_blueprint(api.api_blueprint)
 app.register_blueprint(views.views_blueprint)
 
 
+@app.route("/connect", methods=["POST"])
+def connect():
+    boton= request.form["btn-connect"]
+    servo.value = float(boton)
+    return render_template(
+        'index.html',
+        custom_elements_files=find_files.custom_elements_files())
+
+    
 # @app.route("/<deviceName>/<action>")
 # def action(deviceName, action):
 #     if deviceName == 'motor':
