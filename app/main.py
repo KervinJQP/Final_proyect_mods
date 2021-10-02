@@ -154,6 +154,11 @@ def home():
     #return Response(gen(pi_camera),
        #             mimetype='multipart/x-mixed-replace; boundary=frame')
 
+# @app.route('/video_feed')
+# def video_feed():
+#     return Response(gen(pi_camera),
+#                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 # username = request.form['username']
 # password = request.form['password']

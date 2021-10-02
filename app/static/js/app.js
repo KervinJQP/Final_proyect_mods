@@ -413,14 +413,14 @@ btn.addEventListener("click",()=>{
     btn.innerText = "Desconectar USB";
     btn.style.backgroundColor = "#C94C5F";
     // socket.emit("state", 1) //Conecta
-    socket.send("conectar");
+    socket.send("conectar_enviado");
     
     
   }else{
     btn.innerText="Conectar USB";
     btn.style.backgroundColor = "#4D62CB";
     // socket.emit("state", 0) //Desconecta
-    socket.send("desconectar");
+    socket.send("desconectar_enviado");
   }
 
 });
