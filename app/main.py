@@ -75,7 +75,7 @@ app.config.update(
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
 
-pi_camera = VideoCamera(flip=False)
+#pi_camera = VideoCamera(flip=False)
 
 #db = MySQL(app)
 #Configure GPIO
@@ -143,16 +143,16 @@ def home():
     return render_template(
         'index.html',
         custom_elements_files=find_files.custom_elements_files())
-def gen(camera):
-    while True:
-       frame = camera.get_frame()
-       yield(b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+#def gen(camera):
+    #while True:
+       #frame = camera.get_frame()
+       #yield(b'--frame\r\n'
+        #       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(pi_camera),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+#@app.route('/video_feed')
+#def video_feed():
+    #return Response(gen(pi_camera),
+       #             mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 # username = request.form['username']
