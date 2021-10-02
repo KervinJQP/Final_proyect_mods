@@ -3,8 +3,10 @@
     @import "css/cursors.css";
 
     #remote-screen-img {
-      max-width: 100%;
-      max-height: 1080px;
+      width = 500;
+      height = 500;
+      //max-width: 100%;
+      //max-height: 1080px;
       object-fit: contain;
     }
 
@@ -64,7 +66,7 @@
   </style>
   <div class="screen-wrapper">
     <input id="mobile-keyboard-input" autocapitalize="off" type="text" />
-    <img id="remote-screen-img" src="{{ url_for('video_feed') }}" />
+    <img id="remote-screen-img" src="icon.jpg" />
   </div>
   <script
     id="underscore-library"
