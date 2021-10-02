@@ -6,8 +6,9 @@ set -u
 
 HOST=0.0.0.0 \
   PORT=8000 \
-  DEBUG=1 \
-  USE_RELOADER=1 \
+  DEBUG=0 \
+  USE_RELOADER=0 \
+  #. /home/pi/venv/bin/activate
   APP_SETTINGS_FILE=/opt/tinypilot/app_settings.cfg \
-  export APP_SETTINGS_FILE\
+  #export APP_SETTINGS_FILE \
   ./app/main.py
