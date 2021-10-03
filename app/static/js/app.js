@@ -299,20 +299,6 @@ function setKeystrokeHistoryStatus(isEnabled) {
   // document.getElementById("menu-bar").isInputIndicatorEnabled = isEnabled;
 }
 
-function sendMotorEvent(
-  estado
-) {
-  if (!connectedToServer) {
-    return;
-  }
-  socket.emit(
-    "motor-event",
-    {
-      estado
-    }
-  );
-}
-
 
 document.onload = document.getElementById("app").focus();
 
@@ -407,19 +393,20 @@ shutdownDialog.addEventListener("shutdown-started", (evt) => {
 });
 
 const btn = document.getElementById("btn-connect");
-
+let status
 btn.addEventListener("click",()=>{
   if (btn.innerText==="Conectar USB"){
     btn.innerText = "Desconectar USB";
     btn.style.backgroundColor = "#C94C5F";
+    window.location.href = '/mot';
     // socket.emit("state", 1) //Conecta
+    status = 'on';
     socket.send("conectar_enviado");
-    
-    
   }else{
     btn.innerText="Conectar USB";
     btn.style.backgroundColor = "#4D62CB";
     // socket.emit("state", 0) //Desconecta
+    status = 'off'
     socket.send("desconectar_enviado");
   }
 

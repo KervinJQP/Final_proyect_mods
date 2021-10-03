@@ -27,25 +27,9 @@ from find_files import find as find_files
 
 #For servomotor
 from gpiozero import Servo
+import RPi.GPIO as GPIO
 from time import sleep
-#Define pin for control
-servo = Servo(26)
 
-#database
-
-# database = Flask(__name__)
-# database.config.update(
-#      SECRET_KEY=os.urandom(32),
-#      TEMPLATES_AUTO_RELOAD=True,
-#      WTF_CSRF_TIME_LIMIT=None,
-#  )
-
-# database.config['MYSQL_HOST'] = 'localhost:3306'
-# database.config['MYSQL_USER'] = 'root'
-# database.config['MYSQL_PASSWORD'] = '2017130891'
-# database.config['MYSQL_DB'] = 'login'
-
-#db = MySQL(database)
 
 database = mysql.connector.connect(user='root',password='26799',
                            host='127.0.0.1',
@@ -82,22 +66,20 @@ app.config.update(
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
 
-#pi_camera = VideoCamera(flip=False)
-
-#db = MySQL(app)
-#Configure GPIO
-
 #Define the pins that you want
-motor = 20
+servoPIN = 26
 #Motor status
-motorsts = 0
 
-# GPIO.setmode(GPIO.BCM)
+
+GPIO.setmode(GPIO.BCM)
 # GPIO.setwarnings(False)
-# buttonSts = GPIO.LOW
 
-# GPIO.setup(motor, GPIO.OUT)
 
+GPIO.setup(servoPIN, GPIO.OUT)
+p = GPIO.PWM(servoPIN,50)
+p.start(1.5)
+sleep(4)
+p.ChangeDutyCycle(20)
 # GPIO.output(motor,GPIO.LOW)
 
 
@@ -107,27 +89,6 @@ csrf = flask_wtf.csrf.CSRFProtect(app)
 
 app.register_blueprint(api.api_blueprint)
 app.register_blueprint(views.views_blueprint)
-
-
-@app.route("/connect", methods=["POST"])
-def connect():
-    boton= request.form["btn-connect"]
-    servo.value = float(boton)
-    return render_template(
-        'index.html',
-        custom_elements_files=find_files.custom_elements_files())
-
-    
-# @app.route("/<deviceName>/<action>")
-# def action(deviceName, action):
-#     if deviceName == 'motor':
-#         GPIO.output(motor,GPIO.HIGH)
-
-#     template_data = {
-#         'motor' : motorsts
-#         }
-#     motorsts = GPIO.input(motor)
-#     return render_template('index.html', **template_data)
 
 
 @app.errorhandler(flask_wtf.csrf.CSRFError)
@@ -156,32 +117,28 @@ def handle_error(e):
 
 @app.route('/home')
 def home():
-    return render_template(
-        'index.html',
-        custom_elements_files=find_files.custom_elements_files())
-#def gen(camera):
-    #while True:
-       #frame = camera.get_frame()
-       #yield(b'--frame\r\n'
-        #       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-#@app.route('/video_feed')
-#def video_feed():
-    #return Response(gen(pi_camera),
-       #             mimetype='multipart/x-mixed-replace; boundary=frame')
-
-# @app.route('/video_feed')
-# def video_feed():
-#     return Response(gen(pi_camera),
-#                     mimetype='multipart/x-mixed-replace; boundary=frame')
+    return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
 
-# username = request.form['username']
-# password = request.form['password']
-# cursor = database.cursor()
-# cursor.execute('SELECT * FROM from login_info WHERE username = %s AND password = %s',(username,password))
-
-# template = ''
+@app.route("/<action>")
+def action(action):
+       #p.start(0)
+       if action == 'on':
+           p.ChangeDutyCycle(1.5)
+           #servo.value = 0
+           sleep(1)
+           #servo.value = None
+           #sleep(5)
+       if action == 'off':
+           #servo.value = 1
+           p.ChangeDutyCycle(5)
+           sleep(1)
+           #p.ChangeDutyCycle()
+           #servo.value = None
+           #sleep(5)
+       return redirect(url_for('home'))
+       #return render_template('index.html',
+        #               custom_elements_files=find_files.custom_elements_files())
 
 @app.route('/',methods=['GET','POST'])
 def login():
@@ -190,8 +147,7 @@ def login():
     # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
-        #logger.info(username,password)
-        
+        #logger.info(username,password) 
         #cursor = database.connection.cursor(.cursors.DictCursor)
         cursor.execute("SELECT * FROM login WHERE username = %s AND password = %s",(username,password))
         # Check if account exists using MySQL
@@ -214,7 +170,6 @@ def login():
                     return render_template(
                         'index.html',
                         custom_elements_files=find_files.custom_elements_files(),msg=msg)
-                
             else:
                 # Account doesnt exist or username/password incorrect
                 #return "login unsuc"
