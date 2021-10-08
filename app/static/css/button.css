@@ -50,6 +50,27 @@ display: inline-block;
   flex: 1;
 }
 
+a.button{
+  display: inline-block;
+  padding: 1.25rem ;
+  margin: 1rem 1rem;
+  width: 12rem;
+  height: 6rem;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--brand-metallic-medium);
+  background: var(--brand-blue);
+}
+
+
 /* 
 button:hover,
 .btn:hover,
