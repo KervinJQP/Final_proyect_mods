@@ -126,33 +126,33 @@ def home():
 def connect():
     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
 
-# @app.route('/connections')
-# def home():
-#     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
+@app.route('/connections')
+def home():
+    return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
 
   
-# @app.route("/<device>/<action>")
-# def action(device, action):
-#        #p.start(0)
-#        if device ==  'source':
-#            p = sorc
-#        if device == 'usb':
-#            p = usb
-#        if action == 'on':
-#                  p.ChangeDutyCycle(1.5)
-#                   #servo.value = 0
-#                  sleep(1)
-#                  #servo.value = None
-#                  #sleep(5)
-#        if action == 'off':
-#            #servo.value = 1
-#            p.ChangeDutyCycle(5)
-#            sleep(1)
-#            #p.ChangeDutyCycle()
-#            #servo.value = None
-#            #sleep(5)
-#        p.ChangeDutyCycle(40)
-#        return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())
+@app.route("/<device>/<action>")
+def action(device, action):
+       #p.start(0)
+       if device ==  'source':
+           p = sorc
+       if device == 'usb':
+           p = usb
+       if action == 'on':
+                 p.ChangeDutyCycle(1.5)
+                  #servo.value = 0
+                 sleep(1)
+                 #servo.value = None
+                 #sleep(5)
+       if action == 'off':
+           #servo.value = 1
+           p.ChangeDutyCycle(5)
+           sleep(1)
+           #p.ChangeDutyCycle()
+           #servo.value = None
+           #sleep(5)
+       p.ChangeDutyCycle(40)
+       return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())
 
 
 @app.route('/',methods=['GET','POST'])
