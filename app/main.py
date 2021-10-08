@@ -121,15 +121,15 @@ def handle_error(e):
 def home():
     return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
-<<<<<<< HEAD
+
 @app.route('/connections')
 def connect():
     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
-=======
+
 # @app.route('/connections')
 # def home():
 #     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
->>>>>>> e7dd2f7c0639fddb0ae75ca3396a0b92227481a1
+
   
 # @app.route("/<device>/<action>")
 # def action(device, action):
