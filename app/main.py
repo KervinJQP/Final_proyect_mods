@@ -122,7 +122,7 @@ def home():
     return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
 @app.route('/connections')
-def home():
+def connect():
     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
   
 @app.route("/<device>/<action>")
