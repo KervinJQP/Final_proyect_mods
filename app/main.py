@@ -148,7 +148,7 @@ def action(device, action):
            #servo.value = None
            #sleep(5)
        p.ChangeDutyCycle(40)
-       return render_template('connections.html)
+       return render_template('connections.html')
 
 
 @app.route('/',methods=['GET','POST'])
