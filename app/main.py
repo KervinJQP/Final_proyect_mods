@@ -68,19 +68,23 @@ app.config.from_envvar('APP_SETTINGS_FILE')
 
 #Define the pins that you want
 servoPIN = 26
+servopin2=16
+
 #Motor status
 
 
 GPIO.setmode(GPIO.BCM)
 # GPIO.setwarnings(False)
 
+#Defining pins
+GPIO.setup(servopin,GPIO.OUT)
+GPIO.setup(servopin2,GPIO.OUT)
 
-GPIO.setup(servoPIN, GPIO.OUT)
-p = GPIO.PWM(servoPIN,50)
-p.start(1.5)
-sleep(4)
-p.ChangeDutyCycle(20)
-# GPIO.output(motor,GPIO.LOW)
+usb =GPIO.PWM(servopin,50)
+usb.start(0)
+sorc =GPIO.PWM(servopin2,50)
+sorc.start(0)
+
 
 
 
@@ -119,16 +123,19 @@ def handle_error(e):
 def home():
     return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
-
-@app.route("/<action>")
-def action(action):
+@app.route("/<device>/<action>")
+def action(device, action):
        #p.start(0)
+       if device ==  'source':
+           p = sorc
+       if device == 'usb':
+           p = usb
        if action == 'on':
-           p.ChangeDutyCycle(1.5)
-           #servo.value = 0
-           sleep(1)
-           #servo.value = None
-           #sleep(5)
+                 p.ChangeDutyCycle(1.5)
+                  #servo.value = 0
+                 sleep(1)
+                 #servo.value = None
+                 #sleep(5)
        if action == 'off':
            #servo.value = 1
            p.ChangeDutyCycle(5)
@@ -136,9 +143,9 @@ def action(action):
            #p.ChangeDutyCycle()
            #servo.value = None
            #sleep(5)
-       return redirect(url_for('home'))
-       #return render_template('index.html',
-        #               custom_elements_files=find_files.custom_elements_files())
+       p.ChangeDutyCycle(40)
+       return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())
+
 
 @app.route('/',methods=['GET','POST'])
 def login():
