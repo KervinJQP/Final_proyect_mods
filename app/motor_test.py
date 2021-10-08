@@ -33,7 +33,7 @@ def index():
 def connect():
             #usb.start(0)
             #sorc.start(0)
-            return render_template('index.html')
+            return render_template('index_motor.html')
 
 @app.route("/<device>/<action>")
 def action(device, action):
