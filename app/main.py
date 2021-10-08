@@ -124,7 +124,7 @@ def home():
 
 @app.route('/connections')
 def connect():
-    return render_template('connections.html',find_files.all_frontend_files())  
+    return render_template('connections.html',elements_files=find_files.all_frontend_files())  
 
   
 @app.route("/<device>/<action>")
@@ -148,7 +148,7 @@ def action(device, action):
            #servo.value = None
            #sleep(5)
        p.ChangeDutyCycle(40)
-       return render_template('connections.html',find_files.all_frontend_files())
+       return render_template('connections.html',elements_files=find_files.all_frontend_files())
 
 
 @app.route('/',methods=['GET','POST'])
