@@ -67,7 +67,7 @@ app.config.update(
 app.config.from_envvar('APP_SETTINGS_FILE')
 
 #Define the pins that you want
-servoPIN = 26
+servopin = 26
 servopin2=16
 
 #Motor status
