@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>CMotor control</title>
-    <link rel= "stylesheet" type= "text/css" href ="/css/master.css"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/master.css') }}">
+    
     <script defer src="/js/motor.js"></script>
 </head>
 
@@ -29,7 +30,7 @@
           <a href="/usb/off"class="button">TURN OFF</a>
          </h3>
        </h2>
-       <a href="/" class="button">Go back</a>
+       <a href="/home" class="button">Go back</a>
 
 
 </body>
