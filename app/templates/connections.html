@@ -11,6 +11,10 @@
 </head>
 
 <body>
+    {% for child_template in custom_elements_files %}
+      {% include child_template.replace('./app/templates/', '') %}
+    {% endfor %}
+    
     <h1>Manage connections</h1>
        <h2> Manage source connection:
          <h3>
