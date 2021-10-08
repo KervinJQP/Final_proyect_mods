@@ -35,6 +35,7 @@ def connect():
             #sorc.start(0)
             return render_template('index_motor.html')
 
+
 @app.route("/<device>/<action>")
 def action(device, action):
        #p.start(0)
@@ -42,3 +43,25 @@ def action(device, action):
            p = sorc
        if device == 'usb':
            p = usb
+
+       if action == 'on':
+           p.ChangeDutyCycle(1.5)
+            #servo.value = 0
+           sleep(1)
+           #servo.value = None
+           #sleep(5)
+       if action == 'off':
+           #servo.value = 1
+           p.ChangeDutyCycle(5)
+           sleep(1)
+           #p.ChangeDutyCycle()
+           #servo.value = None
+           #sleep(5)
+       p.ChangeDutyCycle(40)
+       return render_template('index.html')
+
+if __name__ == "__main__":
+   app.run(host='0.0.0.0', port=5000, debug=False)
+
+
+
