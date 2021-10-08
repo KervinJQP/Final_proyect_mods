@@ -63,7 +63,7 @@ app.config.update(
     SECRET_KEY=os.urandom(32),
     TEMPLATES_AUTO_RELOAD=True,
     WTF_CSRF_TIME_LIMIT=None,
-    CACHE_TYPE=Null,
+    CACHE_TYPE=None,
 )
 app.config.from_envvar('APP_SETTINGS_FILE')
 
