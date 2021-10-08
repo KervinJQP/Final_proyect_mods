@@ -121,32 +121,38 @@ def handle_error(e):
 def home():
     return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
+<<<<<<< HEAD
 @app.route('/connections')
 def connect():
     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
+=======
+# @app.route('/connections')
+# def home():
+#     return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
+>>>>>>> e7dd2f7c0639fddb0ae75ca3396a0b92227481a1
   
-@app.route("/<device>/<action>")
-def action(device, action):
-       #p.start(0)
-       if device ==  'source':
-           p = sorc
-       if device == 'usb':
-           p = usb
-       if action == 'on':
-                 p.ChangeDutyCycle(1.5)
-                  #servo.value = 0
-                 sleep(1)
-                 #servo.value = None
-                 #sleep(5)
-       if action == 'off':
-           #servo.value = 1
-           p.ChangeDutyCycle(5)
-           sleep(1)
-           #p.ChangeDutyCycle()
-           #servo.value = None
-           #sleep(5)
-       p.ChangeDutyCycle(40)
-       return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())
+# @app.route("/<device>/<action>")
+# def action(device, action):
+#        #p.start(0)
+#        if device ==  'source':
+#            p = sorc
+#        if device == 'usb':
+#            p = usb
+#        if action == 'on':
+#                  p.ChangeDutyCycle(1.5)
+#                   #servo.value = 0
+#                  sleep(1)
+#                  #servo.value = None
+#                  #sleep(5)
+#        if action == 'off':
+#            #servo.value = 1
+#            p.ChangeDutyCycle(5)
+#            sleep(1)
+#            #p.ChangeDutyCycle()
+#            #servo.value = None
+#            #sleep(5)
+#        p.ChangeDutyCycle(40)
+#        return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())
 
 
 @app.route('/',methods=['GET','POST'])
