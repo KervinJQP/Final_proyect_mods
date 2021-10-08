@@ -86,8 +86,6 @@ sorc =GPIO.PWM(servopin2,50)
 sorc.start(0)
 
 
-
-
 # Configure CSRF protection.
 csrf = flask_wtf.csrf.CSRFProtect(app)
 
@@ -123,6 +121,10 @@ def handle_error(e):
 def home():
     return render_template('index.html',custom_elements_files=find_files.custom_elements_files())
 
+@app.route('/connections')
+def home():
+    return render_template('connections.html',custom_elements_files=find_files.custom_elements_files())  
+  
 @app.route("/<device>/<action>")
 def action(device, action):
        #p.start(0)
@@ -191,46 +193,7 @@ def login():
          'login.html',
          custom_elements_files=find_files.custom_elements_files(),msg = msg)
 
-
-# @app.route('/')
-# def home():
-#     templateData = {
-#        'motor' : 0
-#     }
-#     return render_template('index.html', **templateData)
-
-# @app.route('/login/')
-# def home():
-#     templateData = {
-#        'motor' : 0
-#     }
-#     return render_template('login.html', **templateData)
-
-
-
-# @app.route('/')
-# def home():
-#    templateData = {
-#       'motor' : 0,
-      
-#    }
-#    return render_template('index.html', **templateData)
-
-# @app.route('/<led>/<action>')
-# def led(led, action):
-#    #GPIO.output(int(led), int(action))
-#    templateData = {
-#       #'motor' : GPIO.input(motor)
-#       'motor' : 1
-#    }
-#    return render_template('index.html', **templateData)
-
-#pin_state  =  socket_api.socket_send()
-
-#logger.info(pin_state)
-
-
-
+  
 def main(): 
     #database.run(debug=True)
     socketio = socket_api.socketio
