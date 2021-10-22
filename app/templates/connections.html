@@ -1,5 +1,3 @@
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,22 +10,36 @@
     <script defer src="/js/motor.js"></script>
 </head>
 
-
+<style>
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #008000;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
 <body>
     {% for child_template in custom_elements_files %}
       {% include child_template.replace('./app/templates/', '') %}
     {% endfor %}
     <h1>Manage connections</h1>
-       <h2> Manage source connection:
+       <h2> Manage power connector:
          <h3>
           <a href="/source/on" class="button">TURN ON</a>
           <a href="/source/off"class="button">TURN OFF</a>
+         </h3>
+         <h3> Status:
+         <span class="dot"></span>
          </h3>
        </h2>
        <h2> Manage USB connection:
          <h3>
           <a href="/usb/on" class="button">TURN ON</a>
           <a href="/usb/off"class="button">TURN OFF</a>
+         </h3>
+         <h3> Status:
+         <span class="dot"></span>
          </h3>
        </h2>
        <h3> <a href="/home" class="button">Go back</a></h3>
